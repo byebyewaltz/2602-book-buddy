@@ -10,7 +10,7 @@ import Register from "./components/Register";
 export default function App() {
   const [token, setToken] = useState(localStorage.getItem("token"));
 
-  return (
+  return ( 
     <BrowserRouter>
       <NavBar token={token} setToken={setToken} />
       <Routes>

@@ -31,7 +31,6 @@ export default function Account({ token }) {
       setReturning(null);
     }
   }
-
   if (!token) {
     return (
       <div className="container account-guest">

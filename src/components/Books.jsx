@@ -43,7 +43,6 @@ export default function Books() {
           {search ? "No books match your search." : "No books available."}
         </p>
       )}
-
       {!loading && !error && filtered.length > 0 && (
         <div className="book-grid">
           {filtered.map((book) => (

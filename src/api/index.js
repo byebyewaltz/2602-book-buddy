@@ -1,7 +1,6 @@
 const BASE_URL = "https://fsa-book-buddy-b6e748d1380d.herokuapp.com/api";
 
-// ── Books ─────────────────────────────────────────────────────────────────────
-
+// ── Books 
 export async function fetchAllBooks() {
   const res = await fetch(`${BASE_URL}/books`);
   const data = await res.json();
@@ -16,8 +15,7 @@ export async function fetchBook(id) {
   return data.book ?? data;
 }
 
-// ── Auth ──────────────────────────────────────────────────────────────────────
-
+// ── Auth 
 export async function registerUser({ firstname, lastname, email, password }) {
   const res = await fetch(`${BASE_URL}/users/register`, {
     method: "POST",
@@ -26,7 +24,7 @@ export async function registerUser({ firstname, lastname, email, password }) {
   });
   const data = await res.json();
   if (!res.ok) throw new Error(data.message || "Registration failed");
-  return data; // { token }
+  return data;
 }
 
 export async function loginUser({ email, password }) {
@@ -37,7 +35,7 @@ export async function loginUser({ email, password }) {
   });
   const data = await res.json();
   if (!res.ok) throw new Error(data.message || "Login failed");
-  return data; // { token }
+  return data;
 }
 
 export async function fetchMe(token) {
@@ -49,8 +47,7 @@ export async function fetchMe(token) {
   return data.data?.user ?? data.user ?? data;
 }
 
-// ── Reservations ──────────────────────────────────────────────────────────────
-
+// ── Reservations 
 export async function fetchReservations(token) {
   const res = await fetch(`${BASE_URL}/reservations`, {
     headers: { Authorization: `Bearer ${token}` },
@@ -60,9 +57,6 @@ export async function fetchReservations(token) {
   return data.reservations ?? data;
 }
 
-/**
- * Reserve a book — POST /api/reservations  { bookId }
- */
 export async function reserveBook(bookId, token) {
   const res = await fetch(`${BASE_URL}/reservations`, {
     method: "POST",
@@ -77,15 +71,15 @@ export async function reserveBook(bookId, token) {
   return data;
 }
 
-/**
- * Return a book — DELETE /api/reservations/:reservationId
- */
 export async function returnBook(reservationId, token) {
   const res = await fetch(`${BASE_URL}/reservations/${reservationId}`, {
     method: "DELETE",
     headers: { Authorization: `Bearer ${token}` },
   });
-  const data = await res.json();
-  if (!res.ok) throw new Error(data.message || "Could not return book");
-  return data;
+  if (!res.ok) {
+    const text = await res.text();
+    let msg = "Could not return book";
+    try { msg = JSON.parse(text).message || msg; } catch { /* plain-text body */ }
+    throw new Error(msg);
+  }
 }

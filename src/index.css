@@ -21,12 +21,7 @@ a:hover {
 }
 
 /* ── Navbar ── */
-/*
-  Layout: three-column trick
-    [spacer]  [brand — center]  [nav-links — right]
-  The spacer is a pseudo-element equal in width to .nav-links,
-  pushing the brand to true center without JS.
-*/
+
 .navbar {
   position: sticky;
   top: 0;
@@ -39,7 +34,6 @@ a:hover {
   border-bottom: 1px solid #e0e0d8;
 }
 
-/* Empty first column — mirrors nav-links width to keep brand centered */
 .navbar::before {
   content: '';
 }

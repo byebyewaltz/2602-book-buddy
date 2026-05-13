@@ -9,7 +9,8 @@ export default function Login({ setToken }) {
   const [loading, setLoading] = useState(false);
 
   function handleChange(e) {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
   }
 
   async function handleSubmit(e) {
@@ -17,20 +18,23 @@ export default function Login({ setToken }) {
     setError("");
     setLoading(true);
     try {
-      const data = await loginUser(form);
+      // Trim whitespace before sending to the API
+      const payload = { email: form.email.trim(), password: form.password.trim() };
+      const data = await loginUser(payload);
       localStorage.setItem("token", data.token);
       setToken(data.token);
       navigate("/account");
     } catch (err) {
-      setError(err.message);
+      setError(err.message ?? "Something went wrong. Please try again.");
     } finally {
       setLoading(false);
     }
   }
+
   return (
     <div className="container auth-container">
       <h1>Log In</h1>
-      <form onSubmit={handleSubmit} className="auth-form">
+      <form onSubmit={handleSubmit} className="auth-form" noValidate>
         <label>
           Email
           <input
@@ -39,6 +43,7 @@ export default function Login({ setToken }) {
             value={form.email}
             onChange={handleChange}
             placeholder="you@example.com"
+            autoComplete="email"
             required
           />
         </label>
@@ -50,15 +55,23 @@ export default function Login({ setToken }) {
             value={form.password}
             onChange={handleChange}
             placeholder="••••••••"
+            autoComplete="current-password"
             required
           />
         </label>
-        {error && <p className="status-msg error">{error}</p>}
+        {error && (
+          <p className="status-msg error" role="alert">
+            {error}
+          </p>
+        )}
         <button type="submit" className="btn btn-primary" disabled={loading}>
           {loading ? "Signing in…" : "Log In"}
         </button>
       </form>
-      <p>Do not have an account? <Link to="/register">Register here</Link></p>
+      <p>
+        Don&apos;t have an account?{" "}
+        <Link to="/register">Register here</Link>
+      </p>
     </div>
   );
 }

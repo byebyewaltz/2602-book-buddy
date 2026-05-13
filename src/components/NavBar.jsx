@@ -22,7 +22,6 @@ export default function NavBar({ token, setToken }) {
         >
           Catalog
         </Link>
-
         {token ? (
           <>
             <Link

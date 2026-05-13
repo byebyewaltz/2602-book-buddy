@@ -26,11 +26,12 @@ export default function Account({ token }) {
       await returnBook(reservationId, token);
       setReservations((prev) => prev.filter((r) => r.id !== reservationId));
     } catch (err) {
-      setError(err.message);
+      setError(err.message ?? "Could not return book. Please try again.");
     } finally {
       setReturning(null);
     }
   }
+
   if (!token) {
     return (
       <div className="container account-guest">
@@ -52,7 +53,11 @@ export default function Account({ token }) {
     <div className="container">
       <h1>My Account</h1>
 
-      {error && <p className="status-msg error">{error}</p>}
+      {error && (
+        <p className="status-msg error" role="alert">
+          {error}
+        </p>
+      )}
 
       <div className="profile-card" style={{ marginTop: "1.25rem" }}>
         <h2 style={{ fontSize: "1.15rem" }}>

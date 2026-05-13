@@ -37,14 +37,14 @@ export default function BookDetail({ token }) {
       loadBook();
     } catch (err) {
       setMsgType("error");
-      setMessage(err.message);
+      setMessage(err.message ?? "Could not reserve book. Please try again.");
     } finally {
       setReserving(false);
     }
   }
 
   if (loading) return <p className="status-msg container">Loading…</p>;
-  if (error)   return <p className="status-msg error container">{error}</p>;
+  if (error)   return <p className="status-msg error container" role="alert">{error}</p>;
   if (!book)   return <p className="status-msg container">Book not found.</p>;
 
   return (
@@ -81,7 +81,11 @@ export default function BookDetail({ token }) {
           )}
 
           {message && (
-            <p className={`status-msg ${msgType}`} style={{ textAlign: "left", padding: 0 }}>
+            <p
+              className={`status-msg ${msgType}`}
+              style={{ textAlign: "left", padding: 0 }}
+              role="alert"
+            >
               {message}
             </p>
           )}
@@ -105,4 +109,4 @@ export default function BookDetail({ token }) {
       </div>
     </div>
   );
-} 
+}

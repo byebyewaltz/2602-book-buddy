@@ -31,12 +31,13 @@ export default function Books() {
         className="search-input"
         type="text"
         placeholder="Search by title or author…"
+        aria-label="Search books by title or author"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
 
       {loading && <p className="status-msg">Loading books…</p>}
-      {error && <p className="status-msg error">{error}</p>}
+      {error && <p className="status-msg error" role="alert">{error}</p>}
 
       {!loading && !error && filtered.length === 0 && (
         <p className="status-msg">

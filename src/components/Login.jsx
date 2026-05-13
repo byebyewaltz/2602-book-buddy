@@ -27,7 +27,6 @@ export default function Login({ setToken }) {
       setLoading(false);
     }
   }
-
   return (
     <div className="container auth-container">
       <h1>Log In</h1>

@@ -35,7 +35,6 @@ export default function Register({ setToken }) {
       setLoading(false);
     }
   }
-
   return (
     <div className="container auth-container">
       <h1>Create an Account</h1>

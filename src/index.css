@@ -70,6 +70,7 @@ a:hover {
   display: inline-block;
   padding: 0.45rem 1.1rem;
   border-radius: 6px;
+  font-family: inherit;
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
@@ -295,6 +296,7 @@ a:hover {
   padding: 0.55rem 0.75rem;
   border: 1.5px solid #d0d0c8;
   border-radius: 6px;
+  font-family: inherit;
   font-size: 1rem;
   font-weight: 400;
   outline: none;

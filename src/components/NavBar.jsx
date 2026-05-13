@@ -30,7 +30,7 @@ export default function NavBar({ token, setToken }) {
             >
               My Account
             </Link>
-            <button className="btn btn-outline" onClick={handleLogout}>
+            <button type="button" className="btn btn-outline" onClick={handleLogout}>
               Log Out
             </button>
           </>
